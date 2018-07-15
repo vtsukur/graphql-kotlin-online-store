@@ -9,9 +9,6 @@ import graphql.execution.batched.BatchedExecutionStrategy
 import graphql.execution.instrumentation.ChainedInstrumentation
 import graphql.execution.instrumentation.Instrumentation
 import io.leangen.graphql.GraphQLSchemaGenerator
-import io.leangen.graphql.metadata.strategy.query.AnnotatedResolverBuilder
-import io.leangen.graphql.metadata.strategy.query.BeanResolverBuilder
-import io.leangen.graphql.metadata.strategy.query.PublicResolverBuilder
 import io.leangen.graphql.metadata.strategy.value.jackson.JacksonValueMapperFactory
 import org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE
 import org.springframework.web.bind.annotation.PostMapping
@@ -27,12 +24,6 @@ class GraphQLController (cartGraph: CartGraph, productQuery: ProductGraph) {
 
     init {
         val schema = GraphQLSchemaGenerator()
-                .withResolverBuilders(
-                        BeanResolverBuilder("org.vtsukur.graphql.demo.cart.domain"),
-                        // Resolve by annotations.
-                        AnnotatedResolverBuilder(),
-                        // Resolve public methods inside root package.
-                        PublicResolverBuilder("org.vtsukur.graphql.demo.cart.web.graphql.spqr"))
                 .withOperationsFromSingleton(cartGraph)
                 .withOperationsFromSingleton(productQuery)
                 .withValueMapperFactory(JacksonValueMapperFactory())
