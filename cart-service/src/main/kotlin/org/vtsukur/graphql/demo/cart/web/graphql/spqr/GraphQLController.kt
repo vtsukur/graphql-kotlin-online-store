@@ -5,7 +5,7 @@ import graphql.ExecutionResult
 import graphql.GraphQL
 import graphql.analysis.MaxQueryComplexityInstrumentation
 import graphql.analysis.MaxQueryDepthInstrumentation
-import graphql.execution.AsyncExecutionStrategy
+import graphql.execution.batched.BatchedExecutionStrategy
 import graphql.execution.instrumentation.ChainedInstrumentation
 import graphql.execution.instrumentation.Instrumentation
 import io.leangen.graphql.GraphQLSchemaGenerator
@@ -38,7 +38,7 @@ class GraphQLController (cartGraph: CartGraph, productQuery: ProductGraph) {
                 .withValueMapperFactory(JacksonValueMapperFactory())
                 .generate()
         graphQL = GraphQL.newGraphQL(schema)
-                .queryExecutionStrategy(AsyncExecutionStrategy())
+                .queryExecutionStrategy(BatchedExecutionStrategy())
                 .instrumentation(ChainedInstrumentation(Arrays.asList<Instrumentation>(
                         MaxQueryComplexityInstrumentation(200),
                         MaxQueryDepthInstrumentation(20)
