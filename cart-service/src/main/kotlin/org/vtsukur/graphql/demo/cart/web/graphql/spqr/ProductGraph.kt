@@ -13,23 +13,23 @@ import org.vtsukur.graphql.demo.product.api.Products
 import java.util.stream.Collectors.joining
 
 @Component
-class ProductGraph (private val http: RestTemplate) {
+class ProductGraph(private val http: RestTemplate) {
 
     @GraphQLQuery(name = "product")
     @Batched
     fun products(@GraphQLContext items: List<Item>,
                  @GraphQLEnvironment subFields: Set<String>) =
             http.getForObject(
-                "http://localhost:9090/products?ids={id}",
-                Products::class.java,
-                items.stream().map<String>({ it.productId }).collect(joining(",")),
-                subFields.joinToString(",")
+                    "http://localhost:9090/products?ids={id}",
+                    Products::class.java,
+                    items.stream().map<String>({ it.productId }).collect(joining(",")),
+                    subFields.joinToString(",")
             ).products
 
     @GraphQLQuery(name = "images")
     fun images(@GraphQLContext product: Product,
                @GraphQLArgument(name = "limit", defaultValue = "0") limit: Int) =
             product.images.subList(
-                0, if (limit > 0) limit else product.images.size)
+                    0, if (limit > 0) limit else product.images.size)
 
 }

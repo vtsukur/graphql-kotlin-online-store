@@ -10,7 +10,7 @@ import org.vtsukur.graphql.demo.cart.domain.Cart
 import org.vtsukur.graphql.demo.cart.domain.CartService
 
 @Component
-class CartGraph (private val cartService: CartService) {
+class CartGraph(private val cartService: CartService) {
 
     @GraphQLQuery(name = "cart")
     fun cart(@GraphQLArgument(name = "id") id: Long?): Cart {

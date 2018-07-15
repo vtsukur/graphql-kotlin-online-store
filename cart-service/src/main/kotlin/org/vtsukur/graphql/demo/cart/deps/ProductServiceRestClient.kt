@@ -11,5 +11,4 @@ class ProductServiceRestClient(private val http: RestTemplate, private val baseU
 
     private fun productUrl(productId: String) = URI.create("$baseUrl/products/$productId")
 
-
 }

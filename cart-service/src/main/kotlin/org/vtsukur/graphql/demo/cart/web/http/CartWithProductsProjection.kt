@@ -12,5 +12,3 @@ data class CartWithProductsProjection(var id: Long = -1L, var items: List<Item> 
                                      var image: String = "", var sku: String = "")
     }
 }
-
-

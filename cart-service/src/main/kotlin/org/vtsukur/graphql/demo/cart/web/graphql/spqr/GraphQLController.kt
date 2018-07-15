@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.util.*
 
 @RestController
-class GraphQLController (cartGraph: CartGraph, productQuery: ProductGraph) {
+class GraphQLController(cartGraph: CartGraph, productQuery: ProductGraph) {
 
     private val graphQL: GraphQL
 
@@ -41,8 +41,8 @@ class GraphQLController (cartGraph: CartGraph, productQuery: ProductGraph) {
     @ResponseBody
     fun execute(@RequestBody request: Map<String, Any>): ExecutionResult =
             graphQL.execute(ExecutionInput.newExecutionInput()
-                .query(request["query"] as String)
-                .operationName((request["operationName"]?: "") as String)
-                .build())
+                    .query(request["query"] as String)
+                    .operationName((request["operationName"] ?: "") as String)
+                    .build())
 
 }
