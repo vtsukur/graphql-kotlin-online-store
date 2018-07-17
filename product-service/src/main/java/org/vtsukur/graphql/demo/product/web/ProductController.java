@@ -6,6 +6,7 @@ import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.TypeMappingOptions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.vtsukur.graphql.demo.product.domain.ProductRepository;
@@ -52,8 +53,10 @@ public class ProductController {
 
     @RequestMapping("/{id}")
     @ResponseBody
-    public Product getProduct(@PathVariable("id") String id) {
-        return toFullSingletonResource(productRepository.findOne(id));
+    public ResponseEntity<Product> getProduct(@PathVariable("id") String id) {
+        return productRepository.findById(id)
+                .map(product -> ResponseEntity.ok(toFullSingletonResource(product)))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     private List<Product> toListResource(List<org.vtsukur.graphql.demo.product.domain.Product> products, Function<org.vtsukur.graphql.demo.product.domain.Product, Product> mapper) {

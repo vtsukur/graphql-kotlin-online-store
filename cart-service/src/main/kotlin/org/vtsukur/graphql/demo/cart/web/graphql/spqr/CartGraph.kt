@@ -13,13 +13,13 @@ import org.vtsukur.graphql.demo.cart.domain.CartService
 class CartGraph(private val cartService: CartService) {
 
     @GraphQLQuery(name = "cart")
-    fun cart(@GraphQLArgument(name = "id") id: Long?): Cart {
+    fun cart(@GraphQLArgument(name = "id") id: Long): Cart {
         log.info("fetching cart with id={}", id)
         return cartService.findCart(id)
     }
 
     @GraphQLMutation(name = "addProductToCart")
-    fun addProductToCart(@GraphQLArgument(name = "cartId") cartId: Long?,
+    fun addProductToCart(@GraphQLArgument(name = "cartId") cartId: Long,
                          @GraphQLArgument(name = "productId") productId: String,
                          @GraphQLArgument(name = "quantity", defaultValue = "1") quantity: Int): Cart {
         log.info("adding {} product(s) with id={} to cart with id={}", quantity, productId, cartId)

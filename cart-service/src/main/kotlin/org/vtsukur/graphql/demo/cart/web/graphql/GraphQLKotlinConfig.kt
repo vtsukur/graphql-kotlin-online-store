@@ -18,7 +18,7 @@ class GraphQLKotlinConfig(private val cartService: CartService, private val http
             object : GraphQLQueryResolver {
                 fun hello() = "Hello, Unicorns!"
 
-                fun cart(id: Long?) = cartService.findCart(id)
+                fun cart(id: Long) = cartService.findCart(id)
             }
 
     @Bean
@@ -41,7 +41,7 @@ class GraphQLKotlinConfig(private val cartService: CartService, private val http
     @Bean
     fun mutations() =
             object : GraphQLMutationResolver {
-                fun addProductToCart(cartId: Long?, productId: String, quantity: Int) =
+                fun addProductToCart(cartId: Long, productId: String, quantity: Int) =
                         cartService.addProductToCart(cartId, productId, quantity)
             }
 
