@@ -1,0 +1,15 @@
+mutation {
+    addProductToCart(
+        cartId: 1,
+        productId: "59eb83c0040fa80b29938e3f",
+        quantity: 2) {
+        items {
+            product {
+                id
+            }
+            quantity
+            total
+        }
+        subTotal
+    }
+}
