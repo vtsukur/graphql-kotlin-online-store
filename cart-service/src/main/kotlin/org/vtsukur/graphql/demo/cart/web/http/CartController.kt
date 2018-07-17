@@ -13,8 +13,8 @@ class CartController(private val cartService: CartService, private val productSe
     @RequestMapping("/carts/{id}")
     @ResponseBody
     operator fun get(@PathVariable id: Long,
-                     @RequestParam(value = "projection", required = false) projection: String): Any {
-        val cart = cartService.findCart(id)
+                     @RequestParam(value = "projection", required = false) projection: String): Any? {
+        val cart = cartService.findCart(id)!!
         return if ("with-products" == projection) {
             getProjectionWithProducts(cart)
         } else cart
