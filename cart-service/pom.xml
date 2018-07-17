@@ -17,11 +17,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.leangen.graphql</groupId>
-            <artifactId>spqr</artifactId>
-            <version>0.9.7</version>
-        </dependency>
-        <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
@@ -83,11 +78,6 @@
 
         <dependency>
             <groupId>com.graphql-java</groupId>
-            <artifactId>graphql-spring-boot-starter</artifactId>
-            <version>3.10.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.graphql-java</groupId>
             <artifactId>graphql-java</artifactId>
             <version>9.1</version>
         </dependency>
@@ -96,11 +86,21 @@
             <artifactId>graphql-java-tools</artifactId>
             <version>5.2.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-spring-boot-starter</artifactId>
+            <version>3.10.0</version>
+        </dependency>
         <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphiql-spring-boot-starter</artifactId>
             <version>3.10.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.leangen.graphql</groupId>
+            <artifactId>spqr</artifactId>
+            <version>0.9.7</version>
         </dependency>
     </dependencies>
 
