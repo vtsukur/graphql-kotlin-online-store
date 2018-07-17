@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.vtsukur.graphql.demo</groupId>
-    <artifactId>graphql-java-online-store</artifactId>
+    <artifactId>graphql-kotlin-online-store</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
