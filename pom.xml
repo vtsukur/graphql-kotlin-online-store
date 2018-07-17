@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>graphql-java-online-store</name>
+    <name>graphql-kotlin-online-store</name>
     <description>Demo of Spring-based GraphQL server in Java</description>
 
     <modules>
