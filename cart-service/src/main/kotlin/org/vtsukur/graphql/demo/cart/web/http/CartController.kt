@@ -1,5 +1,6 @@
 package org.vtsukur.graphql.demo.cart.web.http
 
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.vtsukur.graphql.demo.cart.deps.ProductServiceRestClient
 import org.vtsukur.graphql.demo.cart.domain.Cart
@@ -13,11 +14,15 @@ class CartController(private val cartService: CartService, private val productSe
     @RequestMapping("/carts/{id}")
     @ResponseBody
     operator fun get(@PathVariable id: Long,
-                     @RequestParam(value = "projection", required = false) projection: String?): Any? {
-        val cart = cartService.findCart(id)!!
-        return if ("with-products" == projection) {
-            getProjectionWithProducts(cart)
-        } else cart
+                     @RequestParam(value = "projection", required = false) projection: String?): ResponseEntity<Any> {
+        val cart = cartService.findCart(id)
+        if (cart == null) {
+            return ResponseEntity.notFound().build<Any>()
+        } else {
+            return ResponseEntity.ok(if ("with-products" == projection) {
+                getProjectionWithProducts(cart)
+            } else cart)
+        }
     }
 
     private fun getProjectionWithProducts(source: Cart): CartWithProductsProjection {
