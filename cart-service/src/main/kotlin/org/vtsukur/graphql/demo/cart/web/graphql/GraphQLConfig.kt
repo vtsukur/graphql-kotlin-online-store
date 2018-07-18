@@ -3,15 +3,16 @@ package org.vtsukur.graphql.demo.cart.web.graphql
 import com.coxautodev.graphql.tools.GraphQLMutationResolver
 import com.coxautodev.graphql.tools.GraphQLQueryResolver
 import com.coxautodev.graphql.tools.GraphQLResolver
+import com.github.kittinunf.fuel.httpGet
+import com.github.kittinunf.fuel.jackson.jacksonDeserializerOf
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.web.client.RestTemplate
 import org.vtsukur.graphql.demo.cart.domain.CartService
 import org.vtsukur.graphql.demo.cart.domain.Item
 import org.vtsukur.graphql.demo.product.api.Product
 
 @Configuration
-class GraphQLKotlinConfig(private val cartService: CartService, private val http: RestTemplate) {
+class GraphQLConfig(private val cartService: CartService) {
 
     @Bean
     fun query() =
@@ -24,10 +25,11 @@ class GraphQLKotlinConfig(private val cartService: CartService, private val http
     @Bean
     fun cartItemResolver() =
             object : GraphQLResolver<Item> {
-                fun product(item: Item) =
-                        http.getForObject("http://localhost:9090/products/{id}",
-                                Product::class.java,
-                                item.productId)
+                fun product(item: Item): Product {
+                    return "http://localhost:9090/products/${item.productId}".httpGet()
+                            .responseObject(jacksonDeserializerOf<Product>())
+                            .third.get()
+                }
             }
 
     @Bean

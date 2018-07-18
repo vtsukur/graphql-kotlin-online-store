@@ -10,10 +10,6 @@ import org.vtsukur.graphql.demo.cart.deps.ProductServiceRestClient
 class RestClientsConfiguration {
 
     @Bean
-    fun restTemplate() = RestTemplate(HttpComponentsClientHttpRequestFactory())
-
-    @Bean
-    fun productServiceRestClient() = ProductServiceRestClient(restTemplate(), "http://localhost:9090")
-
+    fun productServiceRestClient() = ProductServiceRestClient("http://localhost:9090")
 
 }
