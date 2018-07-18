@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
-import java.util.*
 
 @RestController
 class GraphQLController(cartGraph: CartGraph, productQuery: ProductGraph) {
@@ -30,7 +29,7 @@ class GraphQLController(cartGraph: CartGraph, productQuery: ProductGraph) {
                 .generate()
         graphQL = GraphQL.newGraphQL(schema)
                 .queryExecutionStrategy(BatchedExecutionStrategy())
-                .instrumentation(ChainedInstrumentation(Arrays.asList<Instrumentation>(
+                .instrumentation(ChainedInstrumentation(listOf(
                         MaxQueryComplexityInstrumentation(200),
                         MaxQueryDepthInstrumentation(20)
                 )))
