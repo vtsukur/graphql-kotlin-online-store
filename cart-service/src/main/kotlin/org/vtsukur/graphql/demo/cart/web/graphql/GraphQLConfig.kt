@@ -36,8 +36,9 @@ class GraphQLConfig(private val cartService: CartService) {
     fun productResolver() =
             object : GraphQLResolver<Product> {
                 fun images(product: Product, limit: Int) =
-                        product.images.subList(
-                                0, if (limit > 0) limit else product.images.size)
+                        product.images.subList(0,
+                                if (limit > 0) Math.min(limit, product.images.size)
+                                else product.images.size)
             }
 
     @Bean

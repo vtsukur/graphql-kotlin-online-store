@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component
 import org.vtsukur.graphql.demo.cart.domain.Item
 import org.vtsukur.graphql.demo.product.api.Product
 import org.vtsukur.graphql.demo.product.api.Products
-
 @Component
 class ProductGraph {
 
@@ -28,8 +27,10 @@ class ProductGraph {
 
     @GraphQLQuery(name = "images")
     fun images(@GraphQLContext product: Product,
-               @GraphQLArgument(name = "limit", defaultValue = "0") limit: Int) =
-            product.images.subList(
-                    0, if (limit > 0) limit else product.images.size)
+               @GraphQLArgument(name = "limit", defaultValue = "0") limit: Int): List<String> {
+        return product.images.subList(0,
+                if (limit > 0) Math.min(limit, product.images.size)
+                else product.images.size)
+    }
 
 }
