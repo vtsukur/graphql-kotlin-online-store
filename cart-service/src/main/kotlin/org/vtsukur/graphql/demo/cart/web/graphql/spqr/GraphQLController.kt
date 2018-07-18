@@ -7,7 +7,6 @@ import graphql.analysis.MaxQueryComplexityInstrumentation
 import graphql.analysis.MaxQueryDepthInstrumentation
 import graphql.execution.batched.BatchedExecutionStrategy
 import graphql.execution.instrumentation.ChainedInstrumentation
-import graphql.execution.instrumentation.Instrumentation
 import io.leangen.graphql.GraphQLSchemaGenerator
 import io.leangen.graphql.metadata.strategy.value.jackson.JacksonValueMapperFactory
 import org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE
