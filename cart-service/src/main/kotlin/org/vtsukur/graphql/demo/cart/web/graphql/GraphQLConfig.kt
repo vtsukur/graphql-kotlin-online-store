@@ -15,37 +15,32 @@ import org.vtsukur.graphql.demo.product.api.Product
 class GraphQLConfig(private val cartService: CartService) {
 
     @Bean
-    fun query() =
-            object : GraphQLQueryResolver {
-                fun hello() = "Hello, Unicorns!"
+    fun query() = object : GraphQLQueryResolver {
+        fun hello() = "Hello, Unicorns!"
 
-                fun cart(id: Long) = cartService.findCart(id)
-            }
-
-    @Bean
-    fun cartItemResolver() =
-            object : GraphQLResolver<Item> {
-                fun product(item: Item): Product {
-                    return "http://localhost:9090/products/${item.productId}".httpGet()
-                            .responseObject(jacksonDeserializerOf<Product>())
-                            .third.get()
-                }
-            }
+        fun cart(id: Long) = cartService.findCart(id)
+    }
 
     @Bean
-    fun productResolver() =
-            object : GraphQLResolver<Product> {
-                fun images(product: Product, limit: Int) =
-                        product.images.subList(0,
-                                if (limit > 0) Math.min(limit, product.images.size)
-                                else product.images.size)
-            }
+    fun cartItemResolver() = object : GraphQLResolver<Item> {
+        fun product(item: Item): Product =
+                "http://localhost:9090/products/${item.productId}".httpGet()
+                        .responseObject(jacksonDeserializerOf<Product>())
+                        .third.get()
+    }
 
     @Bean
-    fun mutations() =
-            object : GraphQLMutationResolver {
-                fun addProductToCart(cartId: Long, productId: String, quantity: Int) =
-                        cartService.addProductToCart(cartId, productId, quantity)
-            }
+    fun productResolver() = object : GraphQLResolver<Product> {
+        fun images(product: Product, limit: Int) =
+                product.images.subList(0,
+                        if (limit > 0) Math.min(limit, product.images.size)
+                        else product.images.size)
+    }
+
+    @Bean
+    fun mutations() = object : GraphQLMutationResolver {
+        fun addProductToCart(cartId: Long, productId: String, quantity: Int) =
+                cartService.addProductToCart(cartId, productId, quantity)
+    }
 
 }
