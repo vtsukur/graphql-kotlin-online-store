@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <name>graphql-kotlin-online-store</name>
-    <description>Demo of Spring-based GraphQL server in Java</description>
+    <description>Demo of Spring-based GraphQL server in Kotlin</description>
 
     <modules>
         <module>cart-service</module>
