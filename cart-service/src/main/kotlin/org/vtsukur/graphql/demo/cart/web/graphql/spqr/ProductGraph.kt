@@ -19,10 +19,10 @@ class ProductGraph {
     @Batched
     fun products(@GraphQLContext items: List<Item>,
                  @GraphQLEnvironment fields: Set<String>): List<Product> {
-        val ids = items.joinToString(",") { it.productId }
-        val include = fields.joinToString(",")
-        val (_, _, response) = "http://localhost.charlesproxy.com:9090/products?ids=$ids&include=$include".httpGet()
-                .responseObject(jacksonDeserializerOf<Products>())
+        val (_, _, response) = "http://localhost.charlesproxy.com:9090/products".httpGet(listOf(
+                "ids" to items.joinToString(",") { it.productId },
+                "include" to fields.joinToString(","))
+        ).responseObject(jacksonDeserializerOf<Products>())
         return response.get().products
     }
 
