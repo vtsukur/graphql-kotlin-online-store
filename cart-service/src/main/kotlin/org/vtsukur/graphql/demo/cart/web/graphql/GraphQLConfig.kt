@@ -22,7 +22,7 @@ class GraphQLConfig(private val cartService: CartService) {
     }
 
     @Bean
-    fun cartItemResolver() = object : GraphQLResolver<Item> {
+    fun itemResolver() = object : GraphQLResolver<Item> {
         fun product(item: Item): Product =
                 "http://localhost:9090/products/${item.productId}".httpGet()
                         .responseObject(jacksonDeserializerOf<Product>())
