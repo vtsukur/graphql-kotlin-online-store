@@ -4,28 +4,28 @@ import java.math.BigDecimal
 import javax.persistence.*
 
 @Entity
-data class Cart (
+data class Cart(
 
-    @Id
-    @GeneratedValue
-    var id: Long? = null,
+        @Id
+        @GeneratedValue
+        var id: Long? = null,
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    val items: MutableList<Item> = mutableListOf()) {
+        @ElementCollection(fetch = FetchType.EAGER)
+        val items: MutableList<Item> = mutableListOf()) {
 
-    fun getSubTotal() : BigDecimal = items
-                .map { it.total }
-                .reduce { obj, augend -> obj.add(augend) }
+    fun getSubTotal(): BigDecimal = items
+            .map { it.total }
+            .reduce { obj, incSum -> obj.add(incSum) }
 
     fun addProduct(id: String, price: BigDecimal, quantity: Int) {
         val item = items.stream()
-                .filter({ p -> p.productId == id })
+                .filter { p -> p.productId == id }
                 .findFirst()
-                .orElseGet({
+                .orElseGet {
                     val newItem = Item(id, 0, BigDecimal.ZERO)
                     items.add(newItem)
                     newItem
-                })
+                }
         item.quantity = item.quantity + quantity
         item.total = price.multiply(BigDecimal.valueOf(item.quantity.toLong()))
     }
