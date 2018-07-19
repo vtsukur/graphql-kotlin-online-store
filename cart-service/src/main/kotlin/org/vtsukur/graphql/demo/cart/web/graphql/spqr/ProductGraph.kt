@@ -29,8 +29,7 @@ class ProductGraph {
     @GraphQLQuery(name = "images")
     fun images(@GraphQLContext product: Product,
                @GraphQLArgument(name = "limit", defaultValue = "0") limit: Int): List<String> =
-            product.images.subList(0,
-                    if (limit > 0) Math.min(limit, product.images.size)
-                    else product.images.size)
+            product.images.take(
+                    if (limit > 0) limit else product.images.size)
 
 }
