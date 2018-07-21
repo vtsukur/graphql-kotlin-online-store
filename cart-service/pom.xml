@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>org.vtsukur.graphql.demo</groupId>
+        <groupId>org.vtsukur.graphql.demo.kotlin</groupId>
         <artifactId>service-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../base/service-parent</relativePath>
@@ -30,7 +30,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.vtsukur.graphql.demo</groupId>
+            <groupId>org.vtsukur.graphql.demo.kotlin</groupId>
             <artifactId>product-service-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
