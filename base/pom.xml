@@ -4,17 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.vtsukur.graphql.demo</groupId>
-    <artifactId>graphql-kotlin-online-store</artifactId>
+    <artifactId>base</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>graphql-kotlin-online-store</name>
-    <description>Demo of Spring-based GraphQL server in Kotlin</description>
-
     <modules>
-        <module>base</module>
-        <module>cart-service</module>
-        <module>product-service</module>
-        <module>product-service-api</module>
+        <module>service-parent</module>
     </modules>
 </project>
